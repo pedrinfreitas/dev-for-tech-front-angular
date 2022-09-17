@@ -36,9 +36,9 @@
                 [rows]="10"
                 [globalFilterFields]="[
                     'name',
-                    'country.name',
-                    'representative.name',
-                    'status'
+                    'email',
+                    'celular',
+                    'mensalidade'
                 ]"
                 [rows]="10"
                 [paginator]="true"
@@ -88,6 +88,21 @@
                         <th pSortableColumn="fees">
                             Mensalidade <p-sortIcon field="fees"></p-sortIcon>
                         </th>
+                        <th pSortableColumn="cep">
+                            Cep <p-sortIcon field="cep"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="city">
+                            Cidade <p-sortIcon field="city"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="street">
+                            Rua <p-sortIcon field="street"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="state">
+                            UF <p-sortIcon field="state"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="country">
+                            País <p-sortIcon field="country"></p-sortIcon>
+                        </th>
 
                         <th></th>
                     </tr>
@@ -99,7 +114,7 @@
                                 [value]="student"
                             ></p-tableCheckbox>
                         </td> -->
-                        <td style="width: 14%; min-width: 10rem">
+                        <td style="width: 10%; min-width: 6rem">
                             <span class="p-column-title">ID</span>
                             {{ student.code || student.id }}
                         </td>
@@ -111,7 +126,7 @@
                             <span class="p-column-title">E-mail</span>
                             {{ student.email }}
                         </td>
-                        <td style="width: 14%; min-width: 10rem">
+                        <td style="width: 10%; min-width: 9rem">
                             <span class="p-column-title">Celular</span>
                             {{ student.phone }}
                         </td>
@@ -127,9 +142,29 @@
                                 class="shadow-4"
                             />
                         </td> -->
-                        <td style="width: 20%; min-width: 8rem">
+                        <td style="width: 20%; min-width: 12rem">
                             <span class="p-column-title">Mensalidade</span>
                             {{ student.fees | currency: "BRL" }}
+                        </td>
+                        <td style="width: 14; min-width: 8rem">
+                            <span class="p-column-title">Cep</span>
+                            {{ student.cep }}
+                        </td>
+                        <td style="width: 14; min-width: 10rem">
+                            <span class="p-column-title">Cidade</span>
+                            {{ student.city }}
+                        </td>
+                        <td style="width: 14; min-width: 8rem">
+                            <span class="p-column-title">Rua</span>
+                            {{ student.street }}
+                        </td>
+                        <td style="width: 14; min-width: 6rem">
+                            <span class="p-column-title">UF</span>
+                            {{ student.state }}
+                        </td>
+                        <td style="width: 14; min-width: 6rem">
+                            <span class="p-column-title">País</span>
+                            {{ student.country }}
                         </td>
 
                         <td>
@@ -296,7 +331,7 @@
 
                 <div class="formgrid grid">
                     <div class="field col">
-                        <label for="cep">Estado</label>
+                        <label for="cep">UF</label>
                         <input
                             type="text"
                             pInputText
@@ -312,7 +347,7 @@
                             class="ng-dirty ng-invalid"
                             *ngIf="submitted && !student.state"
                         >
-                            Estado is required.
+                            UF is required.
                         </small>
                     </div>
 
