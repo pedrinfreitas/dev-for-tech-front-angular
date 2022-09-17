@@ -30,8 +30,6 @@ export class StudentsComponent implements OnInit {
 
     cols: any[] = [];
 
-    statuses: any[] = [];
-
     rowsPerPageOptions = [5, 10, 20];
 
     mostraLoading: boolean = false;
@@ -54,20 +52,12 @@ export class StudentsComponent implements OnInit {
             .subscribe((data) => (this.students = data));
         //.then((data) => (this.products = data));
 
-        console.log(this.students);
-
         this.cols = [
-            { field: 'product', header: 'Product' },
-            { field: 'price', header: 'Price' },
-            { field: 'category', header: 'Category' },
-            { field: 'rating', header: 'Reviews' },
-            { field: 'inventoryStatus', header: 'Status' },
-        ];
-
-        this.statuses = [
-            { label: 'INSTOCK', value: 'instock' },
-            { label: 'LOWSTOCK', value: 'lowstock' },
-            { label: 'OUTOFSTOCK', value: 'outofstock' },
+            { field: 'name', header: 'Nome' },
+            { field: 'email', header: 'E-mail' },
+            { field: 'phone', header: 'Celular' },
+            { field: 'fees', header: 'Mensalidade' },
+            { field: 'cep', header: 'CEP' },
         ];
     }
 
