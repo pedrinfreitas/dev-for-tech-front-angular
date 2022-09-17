@@ -13,29 +13,10 @@
                             class="p-button-success mr-2"
                             (click)="openNew()"
                         ></button>
-                        <!-- <button
-                            pButton
-                            pRipple
-                            label="Delete"
-                            icon="pi pi-trash"
-                            class="p-button-danger"
-                            (click)="deleteSelectedProducts()"
-                            [disabled]="
-                                !selectedProducts || !selectedProducts.length
-                            "
-                        ></button> -->
                     </div>
                 </ng-template>
 
                 <ng-template pTemplate="right">
-                    <!-- <p-fileUpload
-                        mode="basic"
-                        accept="image/*"
-                        [maxFileSize]="1000000"
-                        label="Import"
-                        chooseLabel="Import"
-                        class="mr-2 inline-block"
-                    ></p-fileUpload> -->
                     <button
                         pButton
                         pRipple
@@ -49,7 +30,7 @@
 
             <p-table
                 #dt
-                [value]="products"
+                [value]="students"
                 [columns]="cols"
                 responsiveLayout="scroll"
                 [rows]="10"
@@ -63,8 +44,8 @@
                 [paginator]="true"
                 [rowsPerPageOptions]="[10, 20, 30]"
                 [showCurrentPageReport]="true"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                [(selection)]="selectedProducts"
+                currentPageReportTemplate="Mostrando {first} de {last} no total de {totalRecords}"
+                [(selection)]="selectedStudents"
                 selectionMode="multiple"
                 [rowHover]="true"
                 dataKey="id"
@@ -73,14 +54,14 @@
                     <div
                         class="flex flex-column md:flex-row md:justify-content-between md:align-items-center"
                     >
-                        <h5 class="m-0">Manage Products</h5>
+                        <h5 class="m-0">Gerenciar Aluno</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
                             <input
                                 pInputText
                                 type="text"
                                 (input)="onGlobalFilter(dt, $event)"
-                                placeholder="Search..."
+                                placeholder="Buscar..."
                                 class="w-full sm:w-auto"
                             />
                         </span>
@@ -88,87 +69,69 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 3rem">
+                        <!-- <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
-                        <th pSortableColumn="code">
-                            Code <p-sortIcon field="code"></p-sortIcon>
+                        </th> -->
+                        <th pSortableColumn="id">
+                            id <p-sortIcon field="id"></p-sortIcon>
                         </th>
                         <th pSortableColumn="name">
-                            Name <p-sortIcon field="name"></p-sortIcon>
+                            Nome <p-sortIcon field="name"></p-sortIcon>
                         </th>
-                        <th>Image</th>
-                        <th pSortableColumn="price">
-                            Price <p-sortIcon field="price"></p-sortIcon>
+                        <!-- <th>Imagem</th> -->
+                        <th pSortableColumn="email">
+                            E-mail <p-sortIcon field="email"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="category">
-                            Category <p-sortIcon field="category"></p-sortIcon>
+                        <th pSortableColumn="phone">
+                            Celular <p-sortIcon field="phone"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="rating">
-                            Reviews <p-sortIcon field="rating"></p-sortIcon>
+                        <th pSortableColumn="fees">
+                            Mensalidade <p-sortIcon field="fees"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="inventoryStatus">
-                            Status
-                            <p-sortIcon field="inventoryStatus"></p-sortIcon>
-                        </th>
+
                         <th></th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-product>
+                <ng-template pTemplate="body" let-student>
                     <tr>
-                        <td>
+                        <!-- <td>
                             <p-tableCheckbox
-                                [value]="product"
+                                [value]="student"
                             ></p-tableCheckbox>
+                        </td> -->
+                        <td style="width: 14%; min-width: 10rem">
+                            <span class="p-column-title">ID</span>
+                            {{ student.code || student.id }}
                         </td>
                         <td style="width: 14%; min-width: 10rem">
-                            <span class="p-column-title">Code</span>
-                            {{ product.code || product.id }}
+                            <span class="p-column-title">Nome</span>
+                            {{ student.name }}
                         </td>
                         <td style="width: 14%; min-width: 10rem">
-                            <span class="p-column-title">Name</span>
-                            {{ product.name }}
+                            <span class="p-column-title">E-mail</span>
+                            {{ student.email }}
                         </td>
                         <td style="width: 14%; min-width: 10rem">
+                            <span class="p-column-title">Celular</span>
+                            {{ student.phone }}
+                        </td>
+                        <!-- <td style="width: 14%; min-width: 10rem">
                             <span class="p-column-title">Image</span>
                             <img
                                 [src]="
                                     'assets/demo/images/product/' +
-                                    product.image
+                                    student.image
                                 "
-                                [alt]="product.name"
+                                [alt]="student.name"
                                 width="100"
                                 class="shadow-4"
                             />
+                        </td> -->
+                        <td style="width: 20%; min-width: 8rem">
+                            <span class="p-column-title">Mensalidade</span>
+                            {{ student.fees | currency: "BRL" }}
                         </td>
-                        <td style="width: 14%; min-width: 8rem">
-                            <span class="p-column-title">Price</span>
-                            {{ product.price | currency: "USD" }}
-                        </td>
-                        <td style="width: 14%; min-width: 10rem">
-                            <span class="p-column-title">Category</span>
-                            {{ product.category }}
-                        </td>
-                        <td style="width: 14%; min-width: 10rem">
-                            <span class="p-column-title">Reviews</span>
-                            <p-rating
-                                [ngModel]="product.rating"
-                                [readonly]="true"
-                                [cancel]="false"
-                            ></p-rating>
-                        </td>
-                        <td style="width: 14%; min-width: 10rem">
-                            <span class="p-column-title">Status</span>
-                            <span
-                                [class]="
-                                    'product-badge status-' +
-                                    (product.inventoryStatus
-                                        ? product.inventoryStatus.toLowerCase()
-                                        : '')
-                                "
-                                >{{ product.inventoryStatus }}</span
-                            >
-                        </td>
+
                         <td>
                             <div class="flex">
                                 <button
@@ -176,14 +139,14 @@
                                     pRipple
                                     icon="pi pi-pencil"
                                     class="p-button-rounded p-button-success mr-2"
-                                    (click)="editProduct(product)"
+                                    (click)="editStudent(student)"
                                 ></button>
                                 <button
                                     pButton
                                     pRipple
                                     icon="pi pi-trash"
                                     class="p-button-rounded p-button-warning"
-                                    (click)="deleteProduct(product)"
+                                    (click)="deleteStudent(student)"
                                 ></button>
                             </div>
                         </td>
@@ -193,141 +156,205 @@
         </div>
 
         <p-dialog
-            [(visible)]="productDialog"
+            [(visible)]="studentDialog"
             [style]="{ width: '450px' }"
-            header="Product Details"
+            header="Aluno"
             [modal]="true"
             class="p-fluid"
         >
             <ng-template pTemplate="content">
-                <img
-                    [src]="'assets/demo/images/product/' + product.image"
-                    [alt]="product.image"
-                    width="150"
-                    class="mt-0 mx-auto mb-5 block shadow-2"
-                    *ngIf="product.image"
-                />
                 <div class="field">
-                    <label for="name">Name</label>
+                    <label for="name">Nome</label>
                     <input
                         type="text"
                         pInputText
                         id="name"
-                        [(ngModel)]="product.name"
+                        [(ngModel)]="student.name"
                         required
                         autofocus
                         [ngClass]="{
-                            'ng-invalid ng-dirty': submitted && !product.name
+                            'ng-invalid ng-dirty': submitted && !student.name
                         }"
                     />
                     <small
                         class="ng-dirty ng-invalid"
-                        *ngIf="submitted && !product.name"
-                        >Name is required.</small
+                        *ngIf="submitted && !student.name"
                     >
-                </div>
-                <div class="field">
-                    <label for="description">Description</label>
-                    <textarea
-                        id="description"
-                        pInputTextarea
-                        [(ngModel)]="product.description"
-                        required
-                        rows="3"
-                        cols="20"
-                    ></textarea>
+                        Name is required.
+                    </small>
                 </div>
 
-                <div class="field">
-                    <label for="status">Inventory Status</label>
-                    <p-dropdown
-                        id="status"
-                        [options]="statuses"
-                        optionLabel="label"
-                        [(ngModel)]="product.inventoryStatus"
-                        placeholder="Select a Status"
-                    >
-                        <ng-template pTemplate="selectedItem">
-                            <span
-                                *ngIf="product && product.inventoryStatus"
-                                [class]="
-                                    'product-badge status-' +
-                                    product.inventoryStatus.value.toLowerCase()
-                                "
-                                >{{ product.inventoryStatus.value }}</span
-                            >
-                        </ng-template>
-                        <ng-template let-status pTemplate="status">
-                            <span
-                                [class]="
-                                    'product-badge status-' +
-                                    status.value.toLowerCase()
-                                "
-                                >{{ status.label }}</span
-                            >
-                        </ng-template>
-                    </p-dropdown>
-                </div>
+                <div class="field"></div>
 
-                <div class="field">
-                    <label class="mb-3">Category</label>
-                    <div class="formgrid grid">
-                        <div class="field-radiobutton col-6">
-                            <p-radioButton
-                                id="category1"
-                                name="category"
-                                value="Accessories"
-                                [(ngModel)]="product.category"
-                            ></p-radioButton>
-                            <label for="category1">Accessories</label>
-                        </div>
-                        <div class="field-radiobutton col-6">
-                            <p-radioButton
-                                id="category2"
-                                name="category"
-                                value="Clothing"
-                                [(ngModel)]="product.category"
-                            ></p-radioButton>
-                            <label for="category2">Clothing</label>
-                        </div>
-                        <div class="field-radiobutton col-6">
-                            <p-radioButton
-                                id="category3"
-                                name="category"
-                                value="Electronics"
-                                [(ngModel)]="product.category"
-                            ></p-radioButton>
-                            <label for="category3">Electronics</label>
-                        </div>
-                        <div class="field-radiobutton col-6">
-                            <p-radioButton
-                                id="category4"
-                                name="category"
-                                value="Fitness"
-                                [(ngModel)]="product.category"
-                            ></p-radioButton>
-                            <label for="category4">Fitness</label>
-                        </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label for="phone">Celular</label>
+
+                        <p-inputMask
+                            mask="(99) 99999-9999"
+                            type="text"
+                            id="phone"
+                            [(ngModel)]="student.phone"
+                            [ngClass]="{
+                                'ng-invalid ng-dirty':
+                                    submitted && !student.phone
+                            }"
+                        ></p-inputMask>
+
+                        <small
+                            class="ng-dirty ng-invalid"
+                            *ngIf="submitted && !student.phone"
+                        >
+                            Celular is required.
+                        </small>
+                    </div>
+                    <div class="field col">
+                        <label for="email">E-mail</label>
+                        <input
+                            type="text"
+                            pInputText
+                            id="email"
+                            [(ngModel)]="student.email"
+                            required
+                            [ngClass]="{
+                                'ng-invalid ng-dirty':
+                                    submitted && !student.email
+                            }"
+                        />
+                        <small
+                            class="ng-dirty ng-invalid"
+                            *ngIf="submitted && !student.email"
+                        >
+                            E-mail is required.
+                        </small>
                     </div>
                 </div>
 
                 <div class="formgrid grid">
                     <div class="field col">
-                        <label for="price">Price</label>
-                        <p-inputNumber
-                            id="price"
-                            [(ngModel)]="product.price"
-                            mode="currency"
-                            currency="USD"
-                            locale="en-US"
-                        ></p-inputNumber>
+                        <label for="cep">CEP</label>
+                        <p-inputMask
+                            #inputCEP
+                            mask="99999-999"
+                            type="text"
+                            id="cep"
+                            [(ngModel)]="student.cep"
+                            [ngClass]="{
+                                'ng-invalid ng-dirty': submitted && !student.cep
+                            }"
+                            (onBlur)="getCEPAddress(inputCEP.value)"
+                        ></p-inputMask>
+                        <small
+                            class="ng-dirty ng-invalid"
+                            *ngIf="submitted && !student.city"
+                        >
+                            CEP is required.
+                        </small>
                     </div>
+
                     <div class="field col">
-                        <label for="quantity">Quantity</label>
-                        <p-inputNumber
-                            id="quantity"
-                            [(ngModel)]="product.quantity"
-                        ></p-inputNumber>
+                        <label for="email">Cidade</label>
+                        <input
+                            type="text"
+                            pInputText
+                            id="city"
+                            [(ngModel)]="student.city"
+                            required
+                            [ngClass]="{
+                                'ng-invalid ng-dirty':
+                                    submitted && !student.city
+                            }"
+                        />
+                        <small
+                            class="ng-dirty ng-invalid"
+                            *ngIf="submitted && !student.city"
+                        >
+                            E-mail is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="street">Rua</label>
+                    <input
+                        type="text"
+                        pInputText
+                        id="street"
+                        [(ngModel)]="student.street"
+                        required
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !student.street
+                        }"
+                    />
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !student.street"
+                    >
+                        E-mail is required.
+                    </small>
+                </div>
+
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label for="cep">Estado</label>
+                        <input
+                            type="text"
+                            pInputText
+                            id="state"
+                            [(ngModel)]="student.state"
+                            required
+                            [ngClass]="{
+                                'ng-invalid ng-dirty':
+                                    submitted && !student.state
+                            }"
+                        />
+                        <small
+                            class="ng-dirty ng-invalid"
+                            *ngIf="submitted && !student.state"
+                        >
+                            Estado is required.
+                        </small>
+                    </div>
+
+                    <div class="field col">
+                        <label for="email">País</label>
+                        <input
+                            type="text"
+                            pInputText
+                            id="country"
+                            [(ngModel)]="student.country"
+                            required
+                            [ngClass]="{
+                                'ng-invalid ng-dirty':
+                                    submitted && !student.country
+                            }"
+                        />
+                        <small
+                            class="ng-dirty ng-invalid"
+                            *ngIf="submitted && !student.country"
+                        >
+                            País is required.
+                        </small>
+                    </div>
+                    <div class="field col-4">
+                        <label for="street">Mensalidade</label>
+                        <input
+                            type="number"
+                            pInputText
+                            id="fees"
+                            [(ngModel)]="student.fees"
+                            required
+                            [ngClass]="{
+                                'ng-invalid ng-dirty':
+                                    submitted && !student.fees
+                            }"
+                        />
+                        <small
+                            class="ng-dirty ng-invalid"
+                            *ngIf="submitted && !student.fees"
+                        >
+                            Mensalidade is required.
+                        </small>
                     </div>
                 </div>
             </ng-template>
@@ -347,13 +374,13 @@
                     label="Save"
                     icon="pi pi-check"
                     class="p-button-text"
-                    (click)="saveProduct()"
+                    (click)="saveStudent()"
                 ></button>
             </ng-template>
         </p-dialog>
 
         <p-dialog
-            [(visible)]="deleteProductDialog"
+            [(visible)]="deleteStudentDialog"
             header="Confirm"
             [modal]="true"
             [style]="{ width: '450px' }"
@@ -363,8 +390,8 @@
                     class="pi pi-exclamation-triangle mr-3"
                     style="font-size: 2rem"
                 ></i>
-                <span *ngIf="product"
-                    >Are you sure you want to delete <b>{{ product.name }}</b
+                <span *ngIf="student"
+                    >Are you sure you want to delete <b>{{ student.name }}</b
                     >?</span
                 >
             </div>
@@ -375,7 +402,7 @@
                     icon="pi pi-times"
                     class="p-button-text"
                     label="No"
-                    (click)="deleteProductDialog = false"
+                    (click)="deleteStudentDialog = false"
                 ></button>
                 <button
                     pButton
@@ -389,7 +416,7 @@
         </p-dialog>
 
         <p-dialog
-            [(visible)]="deleteProductsDialog"
+            [(visible)]="deleteStudentsDialog"
             header="Confirm"
             [modal]="true"
             [style]="{ width: '450px' }"
@@ -408,7 +435,7 @@
                     icon="pi pi-times"
                     class="p-button-text"
                     label="No"
-                    (click)="deleteProductsDialog = false"
+                    (click)="deleteStudentsDialog = false"
                 ></button>
                 <button
                     pButton

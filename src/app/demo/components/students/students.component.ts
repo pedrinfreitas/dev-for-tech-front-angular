@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { finalize, take } from 'rxjs';
 
-import { Product } from './../../api/product';
-import { ProductService } from './../../service/product.service';
+import { AddressService, IAddress } from './../../service/address.service';
+import { StudentService } from './../../service/students.service';
+import { IStudents } from './students.model';
 
 @Component({
     selector: 'app-students',
@@ -12,17 +14,17 @@ import { ProductService } from './../../service/product.service';
     providers: [MessageService],
 })
 export class StudentsComponent implements OnInit {
-    productDialog: boolean = false;
+    studentDialog: boolean = false;
 
-    deleteProductDialog: boolean = false;
+    deleteStudentDialog: boolean = false;
 
-    deleteProductsDialog: boolean = false;
+    deleteStudentsDialog: boolean = false;
 
-    products: Product[] = [];
+    students: IStudents[] = [];
 
-    product: Product = {};
+    student: IStudents = {};
 
-    selectedProducts: Product[] = [];
+    selectedStudents: IStudents[] = [];
 
     submitted: boolean = false;
 
@@ -32,15 +34,27 @@ export class StudentsComponent implements OnInit {
 
     rowsPerPageOptions = [5, 10, 20];
 
+    mostraLoading: boolean = false;
+
+    address: IAddress = {};
+
     constructor(
-        private productService: ProductService,
+        private studentService: StudentService,
+        private addressService: AddressService,
         private messageService: MessageService
     ) {}
 
     ngOnInit() {
-        this.productService
-            .getProducts()
-            .then((data) => (this.products = data));
+        this.studentService
+            .getStudents()
+            .pipe(
+                take(1),
+                finalize(() => (this.mostraLoading = false))
+            )
+            .subscribe((data) => (this.students = data));
+        //.then((data) => (this.products = data));
+
+        console.log(this.students);
 
         this.cols = [
             { field: 'product', header: 'Product' },
@@ -58,29 +72,29 @@ export class StudentsComponent implements OnInit {
     }
 
     openNew() {
-        this.product = {};
+        this.student = {};
         this.submitted = false;
-        this.productDialog = true;
+        this.studentDialog = true;
     }
 
-    deleteSelectedProducts() {
-        this.deleteProductsDialog = true;
+    deleteSelectedStudents() {
+        this.deleteStudentsDialog = true;
     }
 
-    editProduct(product: Product) {
-        this.product = { ...product };
-        this.productDialog = true;
+    editStudent(student: IStudents) {
+        this.student = { ...student };
+        this.studentDialog = true;
     }
 
-    deleteProduct(product: Product) {
-        this.deleteProductDialog = true;
-        this.product = { ...product };
+    deleteStudent(student: IStudents) {
+        this.deleteStudentDialog = true;
+        this.student = { ...student };
     }
 
     confirmDeleteSelected() {
-        this.deleteProductsDialog = false;
-        this.products = this.products.filter(
-            (val) => !this.selectedProducts.includes(val)
+        this.deleteStudentsDialog = false;
+        this.students = this.students.filter(
+            (val) => !this.selectedStudents.includes(val)
         );
         this.messageService.add({
             severity: 'success',
@@ -88,13 +102,13 @@ export class StudentsComponent implements OnInit {
             detail: 'Products Deleted',
             life: 3000,
         });
-        this.selectedProducts = [];
+        this.selectedStudents = [];
     }
 
     confirmDelete() {
-        this.deleteProductDialog = false;
-        this.products = this.products.filter(
-            (val) => val.id !== this.product.id
+        this.deleteStudentDialog = false;
+        this.students = this.students.filter(
+            (val) => val.id !== this.student.id
         );
         this.messageService.add({
             severity: 'success',
@@ -102,26 +116,21 @@ export class StudentsComponent implements OnInit {
             detail: 'Product Deleted',
             life: 3000,
         });
-        this.product = {};
+        this.student = {};
     }
 
     hideDialog() {
-        this.productDialog = false;
+        this.studentDialog = false;
         this.submitted = false;
     }
 
-    saveProduct() {
+    saveStudent() {
         this.submitted = true;
 
-        if (this.product.name?.trim()) {
-            if (this.product.id) {
-                // @ts-ignore
-                this.product.inventoryStatus = this.product.inventoryStatus
-                    .value
-                    ? this?.product?.inventoryStatus?.value
-                    : this.product.inventoryStatus;
-                this.products[this.findIndexById(this.product.id)] =
-                    this.product;
+        if (this.student.name?.trim()) {
+            if (this.student.id) {
+                this.students[this.findIndexById(this.student.id)] =
+                    this.student;
                 this.messageService.add({
                     severity: 'success',
                     summary: 'Successful',
@@ -129,14 +138,10 @@ export class StudentsComponent implements OnInit {
                     life: 3000,
                 });
             } else {
-                this.product.id = this.createId();
-                this.product.code = this.createId();
-                this.product.image = 'product-placeholder.svg';
-                // @ts-ignore
-                this.product.inventoryStatus = this.product.inventoryStatus
-                    ? this.product.inventoryStatus.value
-                    : 'INSTOCK';
-                this.products.push(this.product);
+                this.student.id = this.createId();
+                console.log(this.student);
+
+                this.students.push(this.student);
                 this.messageService.add({
                     severity: 'success',
                     summary: 'Successful',
@@ -145,16 +150,16 @@ export class StudentsComponent implements OnInit {
                 });
             }
 
-            this.products = [...this.products];
-            this.productDialog = false;
-            this.product = {};
+            this.students = [...this.students];
+            this.studentDialog = false;
+            this.student = {};
         }
     }
 
     findIndexById(id: string): number {
         let index = -1;
-        for (let i = 0; i < this.products.length; i++) {
-            if (this.products[i].id === id) {
+        for (let i = 0; i < this.students.length; i++) {
+            if (this.students[i].id === id) {
                 index = i;
                 break;
             }
@@ -178,5 +183,24 @@ export class StudentsComponent implements OnInit {
             (event.target as HTMLInputElement).value,
             'contains'
         );
+    }
+
+    getCEPAddress(cep: string) {
+        const cepFormat = /^[0-9]{5}-[0-9]{3}$/.test(cep);
+        console.log(cep);
+        console.log(cepFormat);
+
+        if (cep?.length === 9 && cepFormat) {
+            this.addressService
+                .buscarPorCep(cep)
+                .pipe(take(1))
+                .subscribe((data) => {
+                    console.log(data);
+                    this.student.city = data.localidade;
+                    this.student.street = data.logradouro;
+                    this.student.state = data.uf;
+                    this.student.country = 'Brasil';
+                });
+        }
     }
 }

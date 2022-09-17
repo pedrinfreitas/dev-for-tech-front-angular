@@ -5,6 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { FileUploadModule } from 'primeng/fileupload';
+import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -36,6 +37,7 @@ import { StudentsComponent } from './students.component';
         InputNumberModule,
         DialogModule,
         StudentsRoutingModule,
+        InputMaskModule,
     ],
     declarations: [StudentsComponent],
 })
