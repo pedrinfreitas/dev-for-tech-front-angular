@@ -1,23 +1,22 @@
 <div class="layout-topbar">
-    <a class="layout-topbar-logo" routerLink="">
-        <img
+    <button
+        #menubutton
+        class="p-link layout-topbar-button mr-3"
+        (click)="layoutService.onMenuToggle()"
+    >
+        <i class="pi pi-bars"></i>
+    </button>
+    <a class="layout-topbar-logo" routerLink="/admin">
+        <!-- <img
             src="assets/layout/images/{{
                 layoutService.config.colorScheme === 'light'
                     ? 'logo-dark'
                     : 'logo-white'
             }}.svg"
             alt="logo"
-        />
+        /> -->
         <span>Pequenos Gênios</span>
     </a>
-
-    <button
-        #menubutton
-        class="p-link layout-menu-button layout-topbar-button"
-        (click)="layoutService.onMenuToggle()"
-    >
-        <i class="pi pi-bars"></i>
-    </button>
 
     <button
         #topbarmenubutton
@@ -35,9 +34,10 @@
                 layoutService.state.profileSidebarVisible
         }"
     >
-        <button class="p-link layout-topbar-button" [routerLink]="'/profile'">
-            <i class="pi pi-user"></i>
-            <span>Profile</span>
-        </button>
+        <p-splitButton
+            [label]="user || ''"
+            [model]="this.items"
+            styleClass="p-button-text mr-2 mb-2"
+        ></p-splitButton>
     </div>
 </div>
