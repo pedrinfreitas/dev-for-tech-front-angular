@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
 
-import { AuthService } from './auth.service';
+import { AuthService } from './auth/auth.service';
 
 const API_URL =
     'https://devfortech-school-authorization-service.azuremicroservices.io';
