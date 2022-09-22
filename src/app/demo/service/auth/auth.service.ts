@@ -2,7 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
-import { map, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 import { ILoginResponse } from './../../models/login.model';
 
@@ -43,18 +44,31 @@ export class AuthService {
                 httpOptions
             )
             .pipe(
-                tap((result) => console.log('result-->', result)),
+                //tap((result) => console.log('result-->', result)),
                 map((response) => {
                     this.setToken(response.accessToken);
                     return response;
+                }),
+                catchError((error) => {
+                    console.warn(error);
+                    return of([]);
                 })
-                //catchError((err) => of([]))
             );
     }
 
     // getUser() {
     //     return this.userSubject.asObservable();
     // }
+
+    hasUser() {
+        return !!this.getUser();
+    }
+
+    setUser(user: string) {
+        this.user = user;
+        localStorage.setItem('user', JSON.stringify(user));
+    }
+
     getUser() {
         if (this.user) {
             return this.user;
@@ -69,24 +83,19 @@ export class AuthService {
         return null;
     }
 
-    setUser(user: string) {
-        this.user = user;
-        localStorage.setItem('user', JSON.stringify(user));
-    }
+    // getUsuario() {
+    //     if (this.user) {
+    //         return this.user;
+    //     }
 
-    getUsuario() {
-        if (this.user) {
-            return this.user;
-        }
+    //     const userLocalStorage = localStorage.getItem('user');
 
-        const userLocalStorage = localStorage.getItem('user');
-
-        if (userLocalStorage) {
-            this.user = JSON.parse(userLocalStorage);
-            return this.user;
-        }
-        return null;
-    }
+    //     if (userLocalStorage) {
+    //         this.user = JSON.parse(userLocalStorage);
+    //         return this.user;
+    //     }
+    //     return null;
+    // }
 
     hasToken() {
         return !!this.getToken();
@@ -127,7 +136,7 @@ export class AuthService {
 
     isLogged(): boolean {
         // return !!(this.getUsuario() && this.getToken());
-        return this.hasToken();
+        return this.hasToken() && this.hasUser();
     }
 
     logout() {
