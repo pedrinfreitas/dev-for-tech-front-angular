@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
+import { AuthOffGuard } from './demo/service/auth/auth-off.guard';
+import { AuthGuard } from './demo/service/auth/auth.guard';
 import { AppLayoutComponent } from './layout/app.layout.component';
 
 @NgModule({
@@ -48,6 +50,7 @@ import { AppLayoutComponent } from './layout/app.layout.component';
                                 ).then((m) => m.ClasroomsModule),
                         },
                     ],
+                    canActivate: [AuthOffGuard],
                 },
                 {
                     path: 'auth',
@@ -55,6 +58,7 @@ import { AppLayoutComponent } from './layout/app.layout.component';
                         import('./demo/components/auth/auth.module').then(
                             (m) => m.AuthModule
                         ),
+                    canActivate: [AuthGuard],
                 },
 
                 { path: 'pages/notfound', component: NotfoundComponent },
