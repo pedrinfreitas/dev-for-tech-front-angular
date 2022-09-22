@@ -10,6 +10,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RippleModule } from 'primeng/ripple';
 import { SidebarModule } from 'primeng/sidebar';
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 import { AppFooterComponent } from './app.footer.component';
 import { AppLayoutComponent } from './app.layout.component';
@@ -41,6 +42,7 @@ import { AppConfigModule } from './config/config.module';
         RippleModule,
         RouterModule,
         AppConfigModule,
+        SplitButtonModule,
     ],
     exports: [AppLayoutComponent],
 })
