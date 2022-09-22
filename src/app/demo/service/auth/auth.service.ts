@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
-import { of } from 'rxjs';
+import {Observable, of} from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { ILoginResponse } from './../../models/login.model';
@@ -33,32 +33,18 @@ export class AuthService {
         this.hasToken() && this.decodeAdnNotify();
     }
 
-    authenticate(
-        username: string,
-        password: string
-    ) /*: Observable<ILoginResponse>*/ {
+    authenticate(email: string, password: string): Observable<any> {
         return this.http
             .post<any>(
                 `${API_URL}/auth/login`,
-                { username, password },
+                { email, password },
                 httpOptions
             )
-            .pipe(
-                //tap((result) => console.log('result-->', result)),
-                map((response) => {
+            .pipe(map((response) => {
                     this.setToken(response.accessToken);
                     return response;
-                }),
-                catchError((error) => {
-                    console.warn(error);
-                    return of([]);
-                })
-            );
+                }));
     }
-
-    // getUser() {
-    //     return this.userSubject.asObservable();
-    // }
 
     hasUser() {
         return !!this.getUser();
