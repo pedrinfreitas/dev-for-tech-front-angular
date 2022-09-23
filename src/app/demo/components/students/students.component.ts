@@ -7,6 +7,11 @@ import { AddressService, IAddress } from './../../service/address.service';
 import { StudentService } from './../../service/students.service';
 import { IStudents } from './students.model';
 
+interface City {
+    name: string;
+    code: string;
+}
+
 @Component({
     selector: 'app-students',
     templateUrl: './students.component.html',
@@ -14,6 +19,13 @@ import { IStudents } from './students.model';
     providers: [MessageService],
 })
 export class StudentsComponent implements OnInit {
+    // select button - UserCreate
+    stateOptions = [
+        { label: 'Não', value: false },
+        { label: 'Sim', value: true },
+    ];
+    createUser: boolean = false;
+
     studentDialog: boolean = false;
 
     deleteStudentDialog: boolean = false;
@@ -178,8 +190,8 @@ export class StudentsComponent implements OnInit {
     }
 
     onSubmit(student: IStudents): void {
-
         this.submitted = true;
+        this.student.createUser = this.createUser;
 
         if (this.student.id) {
             this.studentService.updateStudents(this.student).subscribe({
