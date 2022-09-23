@@ -1,0 +1,55 @@
+#logoPeqGenios{
+    width: 20rem;
+    margin-right: 10px;
+}
+
+#hero{
+    background: #0377af;
+    height:700px;
+    overflow:hidden;
+}
+
+.pricing-card:hover{
+    border:2px solid var(--cyan-200) !important;
+}
+
+@media screen and (min-width: 768px) {
+    #hero{
+        -webkit-clip-path: ellipse(150% 87% at 93% 13%);
+        clip-path: ellipse(150% 87% at 93% 13%);
+        height: 530px;
+    }
+}
+
+@media screen and (min-width: 1300px){
+    #hero > img {
+        position: absolute;
+        transform:scale(1.2);
+        top:15%;
+    }
+
+    #hero > div > p {
+        max-width: 450px;
+    }
+}
+
+@media screen and (max-width: 1300px){
+    #hero {
+        height: 600px;
+    }
+
+    #hero > img {
+        position:static;
+        transform: scale(1);
+        margin-left: auto;
+    }
+
+    #hero > div {
+        width: 100%;
+    }
+
+    #hero > div > p {
+        width: 100%;
+        max-width: 100%;
+    }
+}
