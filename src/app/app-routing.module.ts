@@ -24,8 +24,8 @@ import {HomeComponent} from "./demo/components/home/home.component";
                         },{
                             path: 'projeto',
                             loadChildren: () =>
-                                import('./demo/components/projeto/projeto.module').then(
-                                    (m) => m.ProjetoModule
+                                import('./demo/components/projeto/project.module').then(
+                                    (m) => m.ProjectModule
                                 ),
                         }
                     ]
