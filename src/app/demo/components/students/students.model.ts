@@ -6,14 +6,14 @@ export interface IStudentsAPIResponse {
 
 export interface IStudentsApi {
     id?: number;
-    fees?: string;
+    fees?: number;
     pessoa?: {
         id?: number;
         name?: string;
         phoneNumber?: string;
         emailAddress?: string;
         addres?: {
-            id?: 1;
+            id?: number;
             street?: string;
             city?: string;
             country?: string;
@@ -41,4 +41,5 @@ export interface IStudents {
     country?: string;
     state?: string;
     cep?: string;
+    createUser?: boolean;
 }

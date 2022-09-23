@@ -192,226 +192,247 @@
 
         <p-dialog
             [(visible)]="studentDialog"
-            [style]="{ width: '450px' }"
+            [style]="{ width: '550px' }"
             header="Aluno"
             [modal]="true"
             class="p-fluid"
         >
-            <ng-template pTemplate="content">
-                <div class="field">
-                    <label for="name">Nome</label>
-                    <input
-                        type="text"
-                        pInputText
-                        id="name"
-                        [(ngModel)]="student.name"
-                        required
-                        autofocus
-                        [ngClass]="{
-                            'ng-invalid ng-dirty': submitted && !student.name
-                        }"
-                    />
-                    <small
-                        class="ng-dirty ng-invalid"
-                        *ngIf="submitted && !student.name"
-                    >
-                        Name is required.
-                    </small>
-                </div>
-
-                <div class="field"></div>
-
-                <div class="formgrid grid">
-                    <div class="field col">
-                        <label for="phone">Celular</label>
-
-                        <p-inputMask
-                            mask="(99) 99999-9999"
-                            type="text"
-                            id="phone"
-                            [(ngModel)]="student.phone"
-                            [ngClass]="{
-                                'ng-invalid ng-dirty':
-                                    submitted && !student.phone
-                            }"
-                        ></p-inputMask>
-
-                        <small
-                            class="ng-dirty ng-invalid"
-                            *ngIf="submitted && !student.phone"
-                        >
-                            Celular is required.
-                        </small>
-                    </div>
-                    <div class="field col">
-                        <label for="email">E-mail</label>
+        <ng-template pTemplate="content">
+            <form
+                #studentForm="ngForm"
+                (ngSubmit)="onSubmit(studentForm.value)"
+            >
+                    <div class="field">
+                        <label for="name">Nome</label>
                         <input
                             type="text"
                             pInputText
-                            id="email"
-                            [(ngModel)]="student.email"
+                            id="name"
+                            name="name"
+                            [(ngModel)]="student.name"
                             required
+                            autofocus
                             [ngClass]="{
                                 'ng-invalid ng-dirty':
-                                    submitted && !student.email
+                                    submitted && !student.name
                             }"
                         />
                         <small
                             class="ng-dirty ng-invalid"
-                            *ngIf="submitted && !student.email"
+                            *ngIf="submitted && !student.name"
+                        >
+                            Name is required.
+                        </small>
+                    </div>
+
+                    <div class="field"></div>
+
+                    <div class="formgrid grid">
+                        <div class="field col">
+                            <label for="phone">Celular</label>
+
+                            <p-inputMask
+                                mask="(99) 99999-9999"
+                                type="text"
+                                id="phone"
+                                name="phone"
+                                [(ngModel)]="student.phone"
+                                [ngClass]="{
+                                    'ng-invalid ng-dirty':
+                                        submitted && !student.phone
+                                }"
+                            ></p-inputMask>
+
+                            <small
+                                class="ng-dirty ng-invalid"
+                                *ngIf="submitted && !student.phone"
+                            >
+                                Celular is required.
+                            </small>
+                        </div>
+                        <div class="field col">
+                            <label for="email">E-mail</label>
+                            <input
+                                type="text"
+                                pInputText
+                                id="email"
+                                name="email"
+                                [(ngModel)]="student.email"
+                                required
+                                [ngClass]="{
+                                    'ng-invalid ng-dirty':
+                                        submitted && !student.email
+                                }"
+                            />
+                            <small
+                                class="ng-dirty ng-invalid"
+                                *ngIf="submitted && !student.email"
+                            >
+                                E-mail is required.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="formgrid grid">
+                        <div class="field col">
+                            <label for="cep">CEP</label>
+                            <p-inputMask
+                                #inputCEP
+                                mask="99999-999"
+                                type="text"
+                                id="cep"
+                                name="cep"
+                                [(ngModel)]="student.cep"
+                                [ngClass]="{
+                                    'ng-invalid ng-dirty':
+                                        submitted && !student.cep
+                                }"
+                                (onBlur)="getCEPAddress(inputCEP.value)"
+                            ></p-inputMask>
+                            <small
+                                class="ng-dirty ng-invalid"
+                                *ngIf="submitted && !student.city"
+                            >
+                                CEP is required.
+                            </small>
+                        </div>
+
+                        <div class="field col">
+                            <label for="email">Cidade</label>
+                            <input
+                                type="text"
+                                pInputText
+                                id="city"
+                                name="city"
+                                [(ngModel)]="student.city"
+                                required
+                                [ngClass]="{
+                                    'ng-invalid ng-dirty':
+                                        submitted && !student.city
+                                }"
+                            />
+                            <small
+                                class="ng-dirty ng-invalid"
+                                *ngIf="submitted && !student.city"
+                            >
+                                E-mail is required.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="street">Rua</label>
+                        <input
+                            type="text"
+                            pInputText
+                            id="street"
+                            name="street"
+                            [(ngModel)]="student.street"
+                            required
+                            [ngClass]="{
+                                'ng-invalid ng-dirty':
+                                    submitted && !student.street
+                            }"
+                        />
+                        <small
+                            class="ng-dirty ng-invalid"
+                            *ngIf="submitted && !student.street"
                         >
                             E-mail is required.
                         </small>
                     </div>
-                </div>
 
-                <div class="formgrid grid">
-                    <div class="field col">
-                        <label for="cep">CEP</label>
-                        <p-inputMask
-                            #inputCEP
-                            mask="99999-999"
-                            type="text"
-                            id="cep"
-                            [(ngModel)]="student.cep"
-                            [ngClass]="{
-                                'ng-invalid ng-dirty': submitted && !student.cep
-                            }"
-                            (onBlur)="getCEPAddress(inputCEP.value)"
-                        ></p-inputMask>
-                        <small
-                            class="ng-dirty ng-invalid"
-                            *ngIf="submitted && !student.city"
-                        >
-                            CEP is required.
-                        </small>
+                    <div class="formgrid grid">
+                        <div class="field col">
+                            <label for="cep">UF</label>
+                            <input
+                                type="text"
+                                pInputText
+                                id="state"
+                                name="state"
+                                [(ngModel)]="student.state"
+                                required
+                                [ngClass]="{
+                                    'ng-invalid ng-dirty':
+                                        submitted && !student.state
+                                }"
+                            />
+                            <small
+                                class="ng-dirty ng-invalid"
+                                *ngIf="submitted && !student.state"
+                            >
+                                UF is required.
+                            </small>
+                        </div>
+
+                        <div class="field col">
+                            <label for="email">País</label>
+                            <input
+                                type="text"
+                                pInputText
+                                id="country"
+                                name="country"
+                                [(ngModel)]="student.country"
+                                required
+                                [ngClass]="{
+                                    'ng-invalid ng-dirty':
+                                        submitted && !student.country
+                                }"
+                            />
+                            <small
+                                class="ng-dirty ng-invalid"
+                                *ngIf="submitted && !student.country"
+                            >
+                                País is required.
+                            </small>
+                        </div>
+                        <div class="field col-4">
+                            <label for="street">Mensalidade</label>
+                            <input
+                                type="number"
+                                pInputText
+                                id="fees"
+                                name="fees"
+                                [(ngModel)]="student.fees"
+                                required
+                                [ngClass]="{
+                                    'ng-invalid ng-dirty':
+                                        submitted && !student.fees
+                                }"
+                            />
+                            <small
+                                class="ng-dirty ng-invalid"
+                                *ngIf="submitted && !student.fees"
+                            >
+                                Mensalidade is required.
+                            </small>
+                        </div>
                     </div>
-
-                    <div class="field col">
-                        <label for="email">Cidade</label>
-                        <input
-                            type="text"
-                            pInputText
-                            id="city"
-                            [(ngModel)]="student.city"
-                            required
-                            [ngClass]="{
-                                'ng-invalid ng-dirty':
-                                    submitted && !student.city
-                            }"
-                        />
-                        <small
-                            class="ng-dirty ng-invalid"
-                            *ngIf="submitted && !student.city"
-                        >
-                            E-mail is required.
-                        </small>
+                    <div class="p-dialog-footer" >
+                        <button
+                            pButton
+                            pRipple
+                            label="Cancel"
+                            icon="pi pi-times"
+                            class="p-button-text"
+                            (click)="hideDialog()"
+                        ></button>
+                        <button
+                            pButton
+                            pRipple
+                            label="Save"
+                            icon="pi pi-check"
+                            class="p-button-text"
+                            [disabled]="studentForm.invalid"
+                            type="submit"
+                        ></button>
                     </div>
-                </div>
+                </form>
+                </ng-template>
 
-                <div class="field">
-                    <label for="street">Rua</label>
-                    <input
-                        type="text"
-                        pInputText
-                        id="street"
-                        [(ngModel)]="student.street"
-                        required
-                        [ngClass]="{
-                            'ng-invalid ng-dirty': submitted && !student.street
-                        }"
-                    />
-                    <small
-                        class="ng-dirty ng-invalid"
-                        *ngIf="submitted && !student.street"
-                    >
-                        E-mail is required.
-                    </small>
-                </div>
 
-                <div class="formgrid grid">
-                    <div class="field col">
-                        <label for="cep">UF</label>
-                        <input
-                            type="text"
-                            pInputText
-                            id="state"
-                            [(ngModel)]="student.state"
-                            required
-                            [ngClass]="{
-                                'ng-invalid ng-dirty':
-                                    submitted && !student.state
-                            }"
-                        />
-                        <small
-                            class="ng-dirty ng-invalid"
-                            *ngIf="submitted && !student.state"
-                        >
-                            UF is required.
-                        </small>
-                    </div>
 
-                    <div class="field col">
-                        <label for="email">País</label>
-                        <input
-                            type="text"
-                            pInputText
-                            id="country"
-                            [(ngModel)]="student.country"
-                            required
-                            [ngClass]="{
-                                'ng-invalid ng-dirty':
-                                    submitted && !student.country
-                            }"
-                        />
-                        <small
-                            class="ng-dirty ng-invalid"
-                            *ngIf="submitted && !student.country"
-                        >
-                            País is required.
-                        </small>
-                    </div>
-                    <div class="field col-4">
-                        <label for="street">Mensalidade</label>
-                        <input
-                            type="number"
-                            pInputText
-                            id="fees"
-                            [(ngModel)]="student.fees"
-                            required
-                            [ngClass]="{
-                                'ng-invalid ng-dirty':
-                                    submitted && !student.fees
-                            }"
-                        />
-                        <small
-                            class="ng-dirty ng-invalid"
-                            *ngIf="submitted && !student.fees"
-                        >
-                            Mensalidade is required.
-                        </small>
-                    </div>
-                </div>
-            </ng-template>
 
-            <ng-template pTemplate="footer">
-                <button
-                    pButton
-                    pRipple
-                    label="Cancel"
-                    icon="pi pi-times"
-                    class="p-button-text"
-                    (click)="hideDialog()"
-                ></button>
-                <button
-                    pButton
-                    pRipple
-                    label="Save"
-                    icon="pi pi-check"
-                    class="p-button-text"
-                    (click)="saveStudent()"
-                ></button>
-            </ng-template>
         </p-dialog>
 
         <p-dialog
@@ -426,7 +447,7 @@
                     style="font-size: 2rem"
                 ></i>
                 <span *ngIf="student"
-                    >Are you sure you want to delete <b>{{ student.name }}</b
+                    >Tem certeza que deseja deletar o aluno <b>{{ student.name }}</b
                     >?</span
                 >
             </div>
@@ -450,7 +471,7 @@
             </ng-template>
         </p-dialog>
 
-        <p-dialog
+        <!-- <p-dialog
             [(visible)]="deleteStudentsDialog"
             header="Confirm"
             [modal]="true"
@@ -481,6 +502,6 @@
                     (click)="confirmDeleteSelected()"
                 ></button>
             </ng-template>
-        </p-dialog>
+        </p-dialog> -->
     </div>
 </div>
