@@ -1,5 +1,33 @@
-export interface IStudentsAPI {
-    data: IStudents[];
+export interface IStudentsAPIResponse {
+    _embedded: {
+        studentDTOList: IStudentsApi[];
+    };
+}
+
+export interface IStudentsApi {
+    id?: number;
+    fees?: string;
+    pessoa?: {
+        id?: number;
+        name?: string;
+        phoneNumber?: string;
+        emailAddress?: string;
+        addres?: {
+            id?: 1;
+            street?: string;
+            city?: string;
+            country?: string;
+            postalCode?: string;
+            state?: string;
+        };
+    };
+    classeID?: number;
+    createUser?: boolean;
+    _links?: {
+        self?: {
+            href?: string;
+        };
+    };
 }
 
 export interface IStudents {

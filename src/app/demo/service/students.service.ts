@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { IStudents, IStudentsAPI } from './../components/students/students.model';
+import { IStudents, IStudentsAPIResponse } from './../components/students/students.model';
 
 const API_URL = 'https://devfortech-school-crud.azuremicroservices.io';
 // 'https://devfortech-school-authorization-service.azuremicroservices.io';
@@ -13,6 +13,8 @@ const httpOptions = {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET,POST,PATCH,DELETE,PUT,OPTIONS',
+        Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbeyJpZCI6MSwiZGVzY3JpcHRpb24iOiJBRE1JTiIsImF1dGhvcml0eSI6IkFETUlOIn1dLCJpYXQiOjE2NjM4NTIzNTUsImV4cCI6MTY2MzkxMjgzNX0.4jF7ScxzNLQT5vXGrCnPZjOPJ8lXGiIlyRZadIrBv68',
         // 'Access-Control-Allow-Headers':
         //     'Origin, Content-Type, X-Auth-Token, content-type',
     }),
@@ -23,12 +25,24 @@ export class StudentService {
 
     getStudents() {
         return this.http
-            .get<IStudentsAPI>(`${API_URL}/crud/aluno`)
+            .get<IStudentsAPIResponse>(`${API_URL}/crud/aluno`, httpOptions)
             .pipe(
                 map((response) => {
-                    console.log(response);
-
-                    return response.data}),
+                    const formatacao: IStudents[] =
+                        response._embedded.studentDTOList.map((student) => ({
+                            id: student.id?.toString(),
+                            name: student.pessoa?.name,
+                            phone: student.pessoa?.phoneNumber,
+                            fees: student.fees,
+                            email: student.pessoa?.emailAddress,
+                            street: student.pessoa?.addres?.street,
+                            city: student.pessoa?.addres?.city,
+                            country: student.pessoa?.addres?.country,
+                            state: student.pessoa?.addres?.state,
+                            cep: student.pessoa?.addres?.postalCode,
+                        }));
+                    return formatacao;
+                }),
                 catchError((error) => {
                     console.warn(error);
                     return of([]);
