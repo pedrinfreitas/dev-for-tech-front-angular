@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {MessageService} from 'primeng/api';
-import {Table} from 'primeng/table';
-import {finalize, take} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { Table } from 'primeng/table';
+import { finalize, take } from 'rxjs';
 
-import {AddressService, IAddress} from './../../service/address.service';
-import {StudentService} from './../../service/students.service';
-import {IStudents} from './students.model';
+import { AddressService, IAddress } from './../../service/address.service';
+import { StudentService } from './../../service/students.service';
+import { IStudents } from './students.model';
 
 @Component({
     selector: 'app-students',
@@ -75,8 +75,8 @@ export class StudentsComponent implements OnInit {
     // }
 
     editStudent(student: IStudents) {
-        this.student = { ...student };
         this.studentDialog = true;
+        this.student = { ...student };
     }
 
     deleteStudent(student: IStudents) {
@@ -181,8 +181,8 @@ export class StudentsComponent implements OnInit {
 
         this.submitted = true;
 
-        if (student.id) {
-            this.studentService.updateStudents(student).subscribe({
+        if (this.student.id) {
+            this.studentService.updateStudents(this.student).subscribe({
                 next: () => this.onSuccess('Aluno editado com sucesso'),
                 error: (err) => this.onError(err),
                 complete: () => console.info('complete'),
