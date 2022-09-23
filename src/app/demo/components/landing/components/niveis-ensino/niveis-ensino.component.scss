@@ -1,0 +1,118 @@
+*{
+    font-family: Montserrat,sans-serif;
+}
+
+.bg-landing{
+    .card{
+        height: 100%;
+    }
+    .lineCont{
+        width: 100%;
+        .line2{
+            width: 18rem;
+        }
+    }
+
+    .titCard{
+        @media screen and (max-width: 680px){
+            margin-left: 15px;
+        }
+
+        color: #0377af;
+        font-size: 3.5rem;
+        font-weight: 700;
+    }
+
+    .niveisCard{
+
+        @media screen and (max-width: 680px){
+            width: 94%;
+            margin: 0 15px;
+        }
+
+        display: flex;
+        margin: 0 auto;
+        width: calc(100vw - 15rem);
+        border: none;
+
+        .bg-blue-400{
+            border-top-right-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+    }
+
+    .niveisCont{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        div div {
+            h1{
+                font-size: 3.5rem;
+                font-weight: 600;
+                color: #d5af13;
+            }
+            p{
+                padding-right: 5%;
+                font-size: 1.7rem;
+            }
+        }
+
+        .niveisBto{
+
+            img{
+                height: 7rem;
+                cursor: pointer;
+            }
+    }
+
+
+    }
+}
+.pgEmNumeros{
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+
+    div{
+        margin: 8px 0 8px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 1.8rem;;
+        font-weight: bold;
+        color: #0377af;
+
+        .numValue{
+            font-weight: 800;
+            font-size: 2.5rem;
+            color: #0377af;
+        }
+
+        .strippgNum{
+            color: #15324b;
+        }
+    }
+}
+
+
+@media screen and (max-width: 1100px) {
+    .pgEmNumeros{
+        display: flex;
+        flex-direction: column;
+        div{
+            margin: 10px 0;
+        }
+    }
+
+    .niveisCard{
+        .bg-blue-400{
+            display: none;
+        }
+    }
+}
+

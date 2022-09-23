@@ -14,10 +14,12 @@ import {PhotoService} from './demo/service/photo.service';
 import {ProductService} from './demo/service/product.service';
 import {StudentService} from './demo/service/students.service';
 import {AppLayoutModule} from './layout/app.layout.module';
+import {TeacherService} from "./demo/service/teachers.service";
+import {HomeModule} from "./demo/components/home/home.module";
 
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
-    imports: [AppRoutingModule, AppLayoutModule],
+    imports: [AppRoutingModule, AppLayoutModule, HomeModule],
     providers: [
         // { provide: LocationStrategy, useClass: HashLocationStrategy },
         CountryService,
@@ -28,6 +30,7 @@ import {AppLayoutModule} from './layout/app.layout.module';
         PhotoService,
         ProductService,
         StudentService,
+        TeacherService,
         AddressService,
         httpInterceptorProviders
 

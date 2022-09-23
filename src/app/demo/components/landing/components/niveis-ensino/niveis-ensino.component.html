@@ -1,0 +1,69 @@
+<div>
+    <div class="pgEmNumeros">
+        <div>
+            <span class="strippgNum">Pequenos Gênios</span>
+            <span class="numValue">EM NÚMEROS</span>
+        </div>
+        <div>
+            <span class="numValue">{{unidades}}</span>
+            <span class="strippgNum">Unidades no Brasil</span>
+        </div>
+        <div>
+            <span class="numValue">{{instMund}}</span>
+            <span class="strippgNum">Instituições no Mundo</span>
+        </div>
+        <div>
+            <span class="numValue">{{alunosMundo}}</span>
+            <span class="strippgNum">Alunos no mundo</span>
+        </div>
+    </div>
+</div>
+
+<div class="bg-landing">
+    <div class="lineCont">
+        <img src="assets/demo/images/landing/line2.png" class="line2" alt="">
+    </div>
+
+    <div class="flex justify-content-center">
+        <div>
+            <h1 class="titCard">Níveis de ensino</h1>
+                <div class="card niveisCard p-0">
+                    <div class="niveisCont p-6">
+                        <div>
+                            <div *ngIf="nivel===1">
+                                <h1>Educação Infantil</h1>
+                                <p>Passos iniciais para apresentar as bases da construção do saber. A Educação Infantil é a primeira etapa da Educação Básica e objetiva o desenvolvimento integral da criança, em seus aspectos físico, afetivo, intelectual, linguístico e social, em parceria com a família e a comunidade. </p>
+                            </div>
+                            <div *ngIf="nivel===2">
+                                <h1>Ensino Fundamental - Anos Inicias</h1>
+                                <p>O Ensino Básico - Anos iniciais tem por objetivo a formação indispensável para o exercício da cidadania. O estudante aprenderá a ler, interpretar, calcular e compreender melhor as dinâmicas sociais, conhecendo nossa história, planeta e características importantes do meio ambiente, além de formações complementares. Dividido em cinco anos letivos (do primeiro ao quinto) para estudantes entre 6 e 10 anos.</p>
+                            </div>
+                            <div *ngIf="nivel===3">
+                                <h1>Ensino Fundamental - Anos Finais</h1>
+                                <p>As abordagens passam a ser ampliadas e mais segmentadas, com professores especializados em cada disciplina. A Rede Educacional Adventista oferece suporte de laboratórios, intercâmbios e didáticas diferenciadas. Dividido em quatro anos letivos (do sexto ao nono) para estudantes entre 11 e 14 anos.</p>
+                            </div>
+                        </div>
+
+                        <div class="niveisBto">
+                            <img (click)="changeNivel(1)" src="assets\demo\images\landing\niveis-bto-ei.png">
+                            <img (click)="changeNivel(2)" src="assets\demo\images\landing\niveis-bto-ef1.png">
+                            <img (click)="changeNivel(3)" src="assets\demo\images\landing\niveis-bto-ef2.png">
+                        </div>
+
+
+
+                    </div>
+                    <div class="bg-blue-400">
+                        <img *ngIf="nivel===1" src="../../../../../../assets/demo/images/landing/niveis-ei.png" height="100%" width="350rem">
+                        <img *ngIf="nivel===2" src="../../../../../../assets/demo/images/landing/niveis-img-ensino-fundamental1.png" height="100%" width="350rem">
+                        <img *ngIf="nivel===3" src="../../../../../../assets/demo/images/landing/niveis-img-ensino-fundamental2.png" height="100%" width="350rem">
+                    </div>
+                </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+

@@ -40,7 +40,6 @@
                     'celular',
                     'mensalidade'
                 ]"
-                [rows]="10"
                 [paginator]="true"
                 [rowsPerPageOptions]="[10, 20, 30]"
                 [showCurrentPageReport]="true"
@@ -197,11 +196,11 @@
             [modal]="true"
             class="p-fluid"
         >
-            <ng-template pTemplate="content">
-                <form
-                    #studentForm="ngForm"
-                    (ngSubmit)="onSubmit(studentForm.value)"
-                >
+        <ng-template pTemplate="content">
+            <form
+                #studentForm="ngForm"
+                (ngSubmit)="onSubmit(studentForm.value)"
+            >
                     <div class="field">
                         <label for="name">Nome</label>
                         <input
@@ -408,17 +407,7 @@
                             </small>
                         </div>
                     </div>
-                    <div>
-                        <h5>Criar conta?</h5>
-                        <p-selectButton
-                            [options]="stateOptions"
-                            [(ngModel)]="createUser"
-                            name="createUser"
-                            optionLabel="label"
-                            optionValue="value"
-                        ></p-selectButton>
-                    </div>
-                    <div class="p-dialog-footer mt-5 p-0">
+                    <div class="p-dialog-footer" >
                         <button
                             pButton
                             pRipple
@@ -438,7 +427,11 @@
                         ></button>
                     </div>
                 </form>
-            </ng-template>
+                </ng-template>
+
+
+
+
         </p-dialog>
 
         <p-dialog
@@ -453,8 +446,7 @@
                     style="font-size: 2rem"
                 ></i>
                 <span *ngIf="student"
-                    >Tem certeza que deseja deletar o aluno
-                    <b>{{ student.name }}</b
+                    >Tem certeza que deseja deletar o aluno <b>{{ student.name }}</b
                     >?</span
                 >
             </div>

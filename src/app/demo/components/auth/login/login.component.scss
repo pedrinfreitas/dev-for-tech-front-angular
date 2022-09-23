@@ -1,0 +1,17 @@
+$background-color_1: #1f1f1f;
+
+.bgLogin {
+    background-image: url('~src/assets/demo/images/login/bgLogin.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: $background-color_1 !important;
+}
+
+form{
+    background: rgba(255, 255, 255, 0.29);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(11.2px);
+    -webkit-backdrop-filter: blur(11.2px);
+    border: 1px solid rgba(255, 255, 255, 0.48);
+}

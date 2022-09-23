@@ -1,0 +1,61 @@
+.lineCont{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 25%;
+
+    .line3{
+        width: 15rem;
+    }
+}
+
+
+.layout {
+    display: grid;
+    grid:
+    ". . . . . . card-foco card-foco card-foco card-foco card-foco ." 1fr
+    ". . . . . . card-foco card-foco card-foco card-foco card-foco ." 1fr
+    ". . . . . . card-foco card-foco card-foco card-foco card-foco ." 1fr
+    ". . . . . . card-foco card-foco card-foco card-foco card-foco ." 1fr
+    ". . . . . . card-foco card-foco card-foco card-foco card-foco ." 1fr
+    ". . . . . . . . . . . ." 1fr
+    ". . . . . . . . . . . ." 1fr
+    ". . . . . . . . . . . ." 1fr
+    / 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.card-foco {
+    grid-area: card-foco;
+    z-index: 2;
+    padding: 3.5rem;
+
+    h1{
+        color: #fff;
+        font-size: 3.5rem;
+        font-weight: bold;
+    }
+
+    p{
+        font-size: 1.5rem;
+        color: #fff;
+    }
+}
+
+.bg{
+    height: 30rem;
+    padding: 0;
+    background-color: #f1c50e;
+    position: absolute;
+    width: 100%;
+    margin: 50px 0 0;
+    z-index: 1;
+}
+
+
+@media screen and (max-width: 650px) {
+    .layout{
+        display: flex;
+        justify-content: center;
+        margin: 0 15px;
+    }
+}

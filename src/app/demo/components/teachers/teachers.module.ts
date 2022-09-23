@@ -17,6 +17,8 @@ import {ToolbarModule} from 'primeng/toolbar';
 
 import {TeachersRoutingModule} from './teachers-routing.module';
 import {TeachersComponent} from './teachers.component';
+import {CheckboxModule} from "primeng/checkbox";
+import {InputMaskModule} from "primeng/inputmask";
 
 @NgModule({
     imports: [
@@ -36,6 +38,8 @@ import {TeachersComponent} from './teachers.component';
         InputNumberModule,
         DialogModule,
         TeachersRoutingModule,
+        CheckboxModule,
+        InputMaskModule,
     ],
     declarations: [TeachersComponent],
 })

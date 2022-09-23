@@ -7,6 +7,11 @@ import {DividerModule} from 'primeng/divider';
 import {ChartModule} from 'primeng/chart';
 import {PanelModule} from 'primeng/panel';
 import {ButtonModule} from 'primeng/button';
+import {FocoComponent} from "./components/foco/foco.component";
+import {NiveisEnsinoComponent} from "./components/niveis-ensino/niveis-ensino.component";
+import {ScrollTopModule} from "primeng/scrolltop";
+import {WelcomeComponent} from "./components/welcome/welcome.component";
+import {GalleriaModule} from "primeng/galleria";
 
 @NgModule({
     imports: [
@@ -16,8 +21,10 @@ import {ButtonModule} from 'primeng/button';
         StyleClassModule,
         ChartModule,
         PanelModule,
-        ButtonModule
+        ButtonModule,
+        ScrollTopModule,
+        GalleriaModule
     ],
-    declarations: [LandingComponent]
+    declarations: [LandingComponent, FocoComponent, NiveisEnsinoComponent, WelcomeComponent]
 })
 export class LandingModule { }

@@ -2,179 +2,181 @@ import {Component, OnInit} from '@angular/core';
 import {MessageService} from 'primeng/api';
 import {Table} from 'primeng/table';
 
-import {Product} from './../../api/product';
-import {ProductService} from './../../service/product.service';
+import {ITeachers} from "../teachers/teachers.model";
+import {AddressService, IAddress} from "../../service/address.service";
+import {TeacherService} from "../../service/teachers.service";
+import {finalize, take} from "rxjs";
 
 @Component({
     templateUrl: './teachers.component.html',
     providers: [MessageService],
 })
 export class TeachersComponent implements OnInit {
-    productDialog: boolean = false;
+    teacherDialog: boolean = false;
 
-    deleteProductDialog: boolean = false;
+    deleteTeacherDialog: boolean = false;
 
-    deleteProductsDialog: boolean = false;
+    deleteTeachersDialog: boolean = false;
 
-    products: Product[] = [];
+    teachers: ITeachers[] = [];
 
-    product: Product = {};
+    teacher: ITeachers = {};
 
-    selectedProducts: Product[] = [];
+    selectedTeachers: ITeachers[] = [];
 
     submitted: boolean = false;
 
     cols: any[] = [];
 
-    statuses: any[] = [];
-
     rowsPerPageOptions = [5, 10, 20];
 
+    mostraLoading: boolean = false;
+
+    address: IAddress = {};
+
+    checked: boolean = false;
+
     constructor(
-        private productService: ProductService,
+        private teacherService: TeacherService,
+        private addressService: AddressService,
         private messageService: MessageService
     ) {}
 
     ngOnInit() {
-        this.productService
-            .getProducts()
-            .then((data) => (this.products = data));
+        this.getTeachers();
 
         this.cols = [
-            { field: 'product', header: 'Product' },
-            { field: 'price', header: 'Price' },
-            { field: 'category', header: 'Category' },
-            { field: 'rating', header: 'Reviews' },
-            { field: 'inventoryStatus', header: 'Status' },
+            { field: 'name', header: 'Nome' },
+            { field: 'email', header: 'E-mail' },
+            { field: 'phone', header: 'Celular' },
+            { field: 'salary', header: 'Salario' },
+            { field: 'cep', header: 'CEP' },
         ];
+    }
 
-        this.statuses = [
-            { label: 'INSTOCK', value: 'instock' },
-            { label: 'LOWSTOCK', value: 'lowstock' },
-            { label: 'OUTOFSTOCK', value: 'outofstock' },
-        ];
+    getTeachers() {
+        this.teacherService
+            .getTeachers()
+            .pipe(
+                take(1),
+                finalize(() => (this.mostraLoading = false))
+            )
+            .subscribe((data) => (this.teachers = data));
     }
 
     openNew() {
-        this.product = {};
+        this.teacher = {};
         this.submitted = false;
-        this.productDialog = true;
+        this.teacherDialog = true;
     }
 
-    deleteSelectedProducts() {
-        this.deleteProductsDialog = true;
+    editTeacher(teacher: ITeachers) {
+        this.teacherDialog = true;
+        this.teacher = { ...teacher };
     }
 
-    editProduct(product: Product) {
-        this.product = { ...product };
-        this.productDialog = true;
+    deleteTeacher(teacher: ITeachers) {
+        this.deleteTeacherDialog = true;
+        this.teacher = { ...teacher };
     }
 
-    deleteProduct(product: Product) {
-        this.deleteProductDialog = true;
-        this.product = { ...product };
-    }
-
-    confirmDeleteSelected() {
-        this.deleteProductsDialog = false;
-        this.products = this.products.filter(
-            (val) => !this.selectedProducts.includes(val)
-        );
-        this.messageService.add({
-            severity: 'success',
-            summary: 'Successful',
-            detail: 'Products Deleted',
-            life: 3000,
-        });
-        this.selectedProducts = [];
-    }
 
     confirmDelete() {
-        this.deleteProductDialog = false;
-        this.products = this.products.filter(
-            (val) => val.id !== this.product.id
-        );
-        this.messageService.add({
-            severity: 'success',
-            summary: 'Successful',
-            detail: 'Product Deleted',
-            life: 3000,
-        });
-        this.product = {};
+        if (this.teacher.id) {
+            this.teacherService.deleteTeachers(+this.teacher.id).subscribe({
+                next: () => {
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Sucesso',
+                        detail: 'Professor Deletado.',
+                        life: 3000,
+                    });
+                    this.getTeachers();
+                    this.deleteTeacherDialog = false;
+                    this.teacher = {};
+                },
+                error: (err) => {
+                    console.error(err);
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Ops...',
+                        detail: 'Algo deu errado',
+                        life: 3000,
+                    });
+                },
+                complete: () => console.info('complete'),
+            });
+        }
     }
 
     hideDialog() {
-        this.productDialog = false;
+        this.teacherDialog = false;
         this.submitted = false;
     }
 
-    saveProduct() {
-        this.submitted = true;
-
-        if (this.product.name?.trim()) {
-            if (this.product.id) {
-                // @ts-ignore
-                this.product.inventoryStatus = this.product.inventoryStatus
-                    .value
-                    ? this?.product?.inventoryStatus?.value
-                    : this.product.inventoryStatus;
-                this.products[this.findIndexById(this.product.id)] =
-                    this.product;
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Successful',
-                    detail: 'Product Updated',
-                    life: 3000,
-                });
-            } else {
-                this.product.id = this.createId();
-                this.product.code = this.createId();
-                this.product.image = 'product-placeholder.svg';
-                // @ts-ignore
-                this.product.inventoryStatus = this.product.inventoryStatus
-                    ? this.product.inventoryStatus.value
-                    : 'INSTOCK';
-                this.products.push(this.product);
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Successful',
-                    detail: 'Product Created',
-                    life: 3000,
-                });
-            }
-
-            this.products = [...this.products];
-            this.productDialog = false;
-            this.product = {};
-        }
-    }
-
-    findIndexById(id: string): number {
-        let index = -1;
-        for (let i = 0; i < this.products.length; i++) {
-            if (this.products[i].id === id) {
-                index = i;
-                break;
-            }
-        }
-
-        return index;
-    }
-
-    createId(): string {
-        let id = '';
-        const chars =
-            'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        for (let i = 0; i < 5; i++) {
-            id += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return id;
-    }
 
     onGlobalFilter(table: Table, event: Event) {
         table.filterGlobal(
             (event.target as HTMLInputElement).value,
             'contains'
         );
+    }
+
+    getCEPAddress(cep: string) {
+        const cepFormat = /^[0-9]{5}-[0-9]{3}$/.test(cep);
+
+        if (cep?.length === 9 && cepFormat) {
+            this.addressService
+                .buscarPorCep(cep)
+                .pipe(take(1))
+                .subscribe((data) => {
+                    console.log(data);
+                    this.teacher.city = data.localidade;
+                    this.teacher.street = data.logradouro;
+                    this.teacher.state = data.uf;
+                    this.teacher.country = 'Brasil';
+                });
+        }
+    }
+
+    onSubmit(teacher: ITeachers): void {
+
+        this.submitted = true;
+
+        if (this.teacher.id) {
+            this.teacherService.updateTeachers(this.teacher).subscribe({
+                next: () => this.onSuccess('Professor editado com sucesso'),
+                error: (err) => this.onError(err),
+                complete: () => console.info('complete'),
+            });
+        } else {
+            this.teacherService.createTeachers(teacher).subscribe({
+                next: () => this.onSuccess('Professor criado com sucesso.'),
+                error: (err) => this.onError(err),
+                complete: () => console.info('complete'),
+            });
+        }
+    }
+
+    onSuccess(status: string) {
+        this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso!',
+            detail: status,
+            life: 3000,
+        });
+        this.getTeachers();
+        this.teacherDialog = false;
+        this.teacher = {};
+    }
+
+    onError(err: any) {
+        console.error(err);
+        this.messageService.add({
+            severity: 'error',
+            summary: 'Ops...',
+            detail: 'Algo deu errado',
+            life: 3000,
+        });
     }
 }

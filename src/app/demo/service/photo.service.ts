@@ -10,7 +10,23 @@ export class PhotoService {
     getImages() {
         return this.http.get<any>('assets/demo/data/photos.json')
             .toPromise()
+            .then(res => <Image[]>res.data)
+            .then(data => { return data; });
+    }
+
+    getImagesLandingPage() {
+        return this.http.get<any>('assets/demo/data/landingPhotos.json')
+            .toPromise()
             .then(res => res.data as Image[])
             .then(data => data);
     }
+    getImagesGalleriaPhotos() {
+        return this.http.get<any>('assets/demo/data/galleriaPhotos.json')
+            .toPromise()
+            .then(res => res.data as Image[])
+            .then(data => data);
+    }
+
+
+
 }

@@ -5,11 +5,12 @@ import {MessageService} from 'primeng/api';
 import {LayoutService} from 'src/app/layout/service/app.layout.service';
 
 import {AuthService} from '../../../service/auth/auth.service';
-import {PlatformDetectorService} from './../../../service/platform-detector/platform-detector.service';
+import {PlatformDetectorService} from '../../../service/platform-detector/platform-detector.service';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
     providers: [MessageService],
 })
 export class LoginComponent implements OnInit {

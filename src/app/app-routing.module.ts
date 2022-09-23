@@ -5,6 +5,7 @@ import {NotfoundComponent} from './demo/components/notfound/notfound.component';
 import {AuthOffGuard} from './demo/service/auth/auth-off.guard';
 import {AuthGuard} from './demo/service/auth/auth.guard';
 import {AppLayoutComponent} from './layout/app.layout.component';
+import {HomeComponent} from "./demo/components/home/home.component";
 
 @NgModule({
     imports: [
@@ -12,10 +13,22 @@ import {AppLayoutComponent} from './layout/app.layout.component';
             [
                 {
                     path: '',
-                    loadChildren: () =>
-                        import('./demo/components/landing/landing.module').then(
-                            (m) => m.LandingModule
-                        ),
+                    component: HomeComponent,
+                    children:[
+                        {
+                            path: 'home',
+                            loadChildren: () =>
+                                import('./demo/components/landing/landing.module').then(
+                                    (m) => m.LandingModule
+                                ),
+                        },{
+                            path: 'projeto',
+                            loadChildren: () =>
+                                import('./demo/components/projeto/projeto.module').then(
+                                    (m) => m.ProjetoModule
+                                ),
+                        }
+                    ]
                 },
                 {
                     path: 'admin',

@@ -1,0 +1,30 @@
+{
+    "data":[{
+        "itemImageSrc": "assets/demo/images/landing/galleri1.jpg",
+        "thumbnailImageSrc": "assets/demo/images/landing/galleri1.jpg",
+        "alt": "Description for Image 1",
+        "title": "Uma educação equilibrada, focada no valor do ser humano é capaz de transformar a humanidade"
+    },{
+        "itemImageSrc": "assets/demo/images/landing/galleri2.jpg",
+        "thumbnailImageSrc": "assets/demo/images/landing/galleri2.jpg",
+        "alt": "Description for Image 2",
+        "title": "A escola certa para seu filho"
+    },
+        {
+            "itemImageSrc": "assets/demo/images/landing/galleri3.jpg",
+            "thumbnailImageSrc": "assets/demo/images/landing/galleri3.jpg",
+            "alt": "Description for Image 3",
+            "title": "O dicionario define gentileza como amabilidade. Ela tem a ver com gestos de cuidado, carinho, cortesia..."
+        },{
+            "itemImageSrc": "assets/demo/images/landing/galleri4.jpg",
+            "thumbnailImageSrc": "assets/demo/images/landing/galleri4.jpg",
+            "alt": "Description for Image 4",
+            "title": "Tudo para seu filho crescer e seguir seus sonhos"
+        },{
+            "itemImageSrc": "assets/demo/images/landing/galleri5.jpg",
+            "thumbnailImageSrc": "assets/demo/images/landing/galleri5.jpg",
+            "alt": "Description for Image 5",
+            "title": "As amizades estão entre os laços mais importantes da nossas vidas. Todos nós precisamos de um ombro amigo..."
+        }]
+
+}

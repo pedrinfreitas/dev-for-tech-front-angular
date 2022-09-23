@@ -1,9 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {of} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
 
-import { IStudents, IStudentsApi, IStudentsAPIResponse } from './../components/students/students.model';
+import {IStudents, IStudentsApi, IStudentsAPIResponse} from './../components/students/students.model';
 
 const API_URL = 'https://devfortech-school-crud.azuremicroservices.io';
 
@@ -39,6 +39,7 @@ export class StudentService {
                             country: student.pessoa?.addres?.country,
                             state: student.pessoa?.addres?.state,
                             cep: student.pessoa?.addres?.postalCode,
+                            createUser: student.createUser
                         }));
                     return format;
                 }),
@@ -64,7 +65,7 @@ export class StudentService {
                     state: student.state,
                 },
             },
-            createUser: student.createUser || false,
+            createUser: student.createUser,
         };
 
         return this.http.post<IStudentsApi>(
@@ -106,7 +107,7 @@ export class StudentService {
                     state: student.state,
                 },
             },
-            createUser: student.createUser || false,
+            createUser: student.createUser,
         };
 
         return this.http.put<IStudentsApi>(

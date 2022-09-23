@@ -1,0 +1,15 @@
+{
+    "data":[{
+        "itemImageSrc": "assets/demo/images/landing/Banners-2023-EA1.jpg",
+        "thumbnailImageSrc": "assets/demo/images/landing/Banners-2023-EA1.jpg",
+        "alt": "Description for Image 1",
+        "title": "Title 1"
+    },
+        {
+            "itemImageSrc": "assets/demo/images/landing/Banners-2023-EA3.jpg",
+            "thumbnailImageSrc": "assets/demo/images/landing/Banners-2023-EA3.jpg",
+            "alt": "Description for Image 2",
+            "title": "Title 2"
+        }]
+
+}
