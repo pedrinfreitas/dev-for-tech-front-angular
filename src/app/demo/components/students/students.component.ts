@@ -1,16 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {MessageService} from 'primeng/api';
-import {Table} from 'primeng/table';
-import {finalize, take} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { Table } from 'primeng/table';
+import { finalize, take } from 'rxjs';
 
-import {AddressService, IAddress} from '../../service/address.service';
-import {StudentService} from '../../service/students.service';
-import {IStudents} from './students.model';
-
-interface City {
-    name: string;
-    code: string;
-}
+import { AddressService, IAddress } from '../../service/address.service';
+import { StudentService } from '../../service/students.service';
+import { IStudents } from './students.model';
 
 @Component({
     selector: 'app-students',
@@ -19,6 +14,7 @@ interface City {
     providers: [MessageService],
 })
 export class StudentsComponent implements OnInit {
+
     // select button - UserCreate
     stateOptions = [
         { label: 'Não', value: false },
