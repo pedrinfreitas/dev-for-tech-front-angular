@@ -1,9 +1,9 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {of} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
-import {IStudents, IStudentsApi, IStudentsAPIResponse} from './../components/students/students.model';
+import { IStudents, IStudentsApi, IStudentsAPIResponse } from './../components/students/students.model';
 
 const API_URL = 'https://devfortech-school-crud.azuremicroservices.io';
 
@@ -22,6 +22,18 @@ const httpOptions = {
 export class StudentService {
     constructor(private http: HttpClient) {}
 
+    getQtdeStudents() {
+        return this.http
+            .get<IStudentsAPIResponse>(`${API_URL}/crud/aluno`, httpOptions)
+            .pipe(
+                map((response) => response.page?.totalElements),
+                catchError((error) => {
+                    console.warn(error);
+                    return of(0);
+                })
+            );
+    }
+
     getStudents() {
         return this.http
             .get<IStudentsAPIResponse>(`${API_URL}/crud/aluno`, httpOptions)
@@ -39,7 +51,7 @@ export class StudentService {
                             country: student.pessoa?.addres?.country,
                             state: student.pessoa?.addres?.state,
                             cep: student.pessoa?.addres?.postalCode,
-                            createUser: student.createUser
+                            createUser: student.createUser,
                         }));
                     return format;
                 }),

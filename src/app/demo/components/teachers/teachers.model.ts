@@ -1,6 +1,12 @@
 export interface ITeachersAPIResponse {
     _embedded: {
         teacherDTOList: ITeachersApi[];
+    },
+    page?: {
+        size?: number;
+        totalElements?: number;
+        totalPages?: number;
+        number?: number;
     };
 }
 

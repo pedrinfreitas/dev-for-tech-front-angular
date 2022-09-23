@@ -1,10 +1,10 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {of} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
-import {ITeachers, ITeachersApi, ITeachersAPIResponse} from '../components/teachers/teachers.model';
-import {environment} from "../../../environments/environment.prod";
+import { environment } from '../../../environments/environment.prod';
+import { ITeachers, ITeachersApi, ITeachersAPIResponse } from '../components/teachers/teachers.model';
 
 const API_URL = environment.gatewayUrl;
 
@@ -18,6 +18,19 @@ const httpOptions = {
 @Injectable()
 export class TeacherService {
     constructor(private http: HttpClient) {}
+
+
+    getQtdeTeachers() {
+        return this.http
+            .get<ITeachersAPIResponse>(`${API_URL}/crud/professor`, httpOptions)
+            .pipe(
+                map((response) => response.page?.totalElements),
+                catchError((error) => {
+                    console.warn(error);
+                    return of(0);
+                })
+            );
+    }
 
     getTeachers() {
         return this.http

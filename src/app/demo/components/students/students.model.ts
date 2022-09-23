@@ -2,6 +2,12 @@ export interface IStudentsAPIResponse {
     _embedded: {
         studentDTOList: IStudentsApi[];
     };
+    page?: {
+        size?: number;
+        totalElements?: number;
+        totalPages?: number;
+        number?: number;
+    };
 }
 
 export interface IStudentsApi {
