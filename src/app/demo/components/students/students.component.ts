@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { finalize, take } from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {MessageService} from 'primeng/api';
+import {Table} from 'primeng/table';
+import {finalize, take} from 'rxjs';
 
-import { AddressService, IAddress } from './../../service/address.service';
-import { StudentService } from './../../service/students.service';
-import { IStudents } from './students.model';
+import {AddressService, IAddress} from './../../service/address.service';
+import {StudentService} from './../../service/students.service';
+import {IStudents} from './students.model';
 
 @Component({
     selector: 'app-students',

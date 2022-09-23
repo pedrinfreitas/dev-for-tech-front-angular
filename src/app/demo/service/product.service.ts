@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 
-import { Product } from '../api/product';
+import {Product} from '../api/product';
 
 @Injectable()
 export class ProductService {

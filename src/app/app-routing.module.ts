@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
 
-import { NotfoundComponent } from './demo/components/notfound/notfound.component';
-import { AuthOffGuard } from './demo/service/auth/auth-off.guard';
-import { AuthGuard } from './demo/service/auth/auth.guard';
-import { AppLayoutComponent } from './layout/app.layout.component';
+import {NotfoundComponent} from './demo/components/notfound/notfound.component';
+import {AuthOffGuard} from './demo/service/auth/auth-off.guard';
+import {AuthGuard} from './demo/service/auth/auth.guard';
+import {AppLayoutComponent} from './layout/app.layout.component';
 
 @NgModule({
     imports: [

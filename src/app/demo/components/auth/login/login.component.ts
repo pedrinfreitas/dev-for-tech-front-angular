@@ -1,11 +1,11 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {MessageService} from 'primeng/api';
+import {LayoutService} from 'src/app/layout/service/app.layout.service';
 
-import { AuthService } from '../../../service/auth/auth.service';
-import { PlatformDetectorService } from './../../../service/platform-detector/platform-detector.service';
+import {AuthService} from '../../../service/auth/auth.service';
+import {PlatformDetectorService} from './../../../service/platform-detector/platform-detector.service';
 
 @Component({
     selector: 'app-login',

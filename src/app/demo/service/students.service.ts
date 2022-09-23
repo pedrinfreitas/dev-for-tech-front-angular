@@ -1,9 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {of} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
 
-import { IStudents, IStudentsAPIResponse } from './../components/students/students.model';
+import {IStudents, IStudentsAPIResponse} from './../components/students/students.model';
 
 const API_URL = 'https://devfortech-school-crud.azuremicroservices.io';
 // 'https://devfortech-school-authorization-service.azuremicroservices.io';

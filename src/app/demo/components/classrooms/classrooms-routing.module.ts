@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
 
-import { ClassroomsComponent } from './classrooms.component';
+import {ClassroomsComponent} from './classrooms.component';
 
 @NgModule({
     imports: [
