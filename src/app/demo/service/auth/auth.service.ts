@@ -1,11 +1,11 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
 import jwt_decode from 'jwt-decode';
-import {Observable, of} from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
-import { ILoginResponse } from './../../models/login.model';
+import {ILoginResponse} from './../../models/login.model';
 
 const API_URL =
     'https://devfortech-school-authorization-service.azuremicroservices.io';

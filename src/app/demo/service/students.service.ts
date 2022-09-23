@@ -109,6 +109,9 @@ export class StudentService {
             createUser: student.createUser || false,
         };
 
+        console.log(studentFormat);
+
+
         return this.http.put<IStudentsApi>(
             `${API_URL}/crud/aluno`,
             studentFormat,

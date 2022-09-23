@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { Table } from 'primeng/table';
+import {Component, OnInit} from '@angular/core';
+import {MessageService} from 'primeng/api';
+import {Table} from 'primeng/table';
 
-import { Product } from './../../api/product';
-import { ProductService } from './../../service/product.service';
+import {Product} from './../../api/product';
+import {ProductService} from './../../service/product.service';
 
 @Component({
     templateUrl: './teachers.component.html',

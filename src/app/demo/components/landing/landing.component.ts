@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {LayoutService} from 'src/app/layout/service/app.layout.service';
 
 @Component({
     selector: 'app-landing',
